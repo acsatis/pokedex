@@ -53,6 +53,10 @@ li.bug.flying {
     background: linear-gradient(90deg, #A8B820 50%, #A890F0 50%)
 }
 
+li.poison.fire {
+    background: linear-gradient(90deg, #A040A0 50%, #F08030 50%)
+}
+
 li.bug.poison {
     background: linear-gradient(90deg, #A8B820 50%, #A040A0 50%)
 }
@@ -94,14 +98,4 @@ span.item-name{
 
 button:hover {
     opacity: 0.5;
-}
-
-span.item-name{
-    color: #fff;
-    font-size: 14px;
-    background-color: rgba(0,0,0,.5);
-    display: block;
-    padding: 5px;
-    bottom: 0;
-    text-align: center;
 }
