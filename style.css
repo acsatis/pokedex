@@ -66,4 +66,5 @@ span.item-name{
     display: block;
     padding: 5px;
     bottom: 0;
+    text-align: center;
 }
