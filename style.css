@@ -36,3 +36,22 @@ li.poison {
 li.water {
     background-color: #6890F0;
 }
+
+ul.list-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap
+}
+
+li.item-container{
+    padding: 5px;
+}
+
+body{
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    align-content: stretch;
+    margin: 0px;
+    padding: 0px;
+}
