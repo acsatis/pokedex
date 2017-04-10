@@ -94,8 +94,6 @@ span.item-name{
 
 button:hover {
     opacity: 0.5;
-    display: flex;
-    flex-direction: column;
 }
 
 span.item-name{
