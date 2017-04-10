@@ -7,6 +7,7 @@ body {
 header {
     display: block;
     background-color: rgb(160, 64, 160);
+    color: #FFFFFF;
 }
 
 .monster-sprite {
@@ -14,6 +15,10 @@ header {
     background-position: center center;
     width: 140px;
     height: 140px;
+}
+
+li {
+    display: block;
 }
 
 li.fire {
