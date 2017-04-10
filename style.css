@@ -67,8 +67,17 @@ ul.list-container {
     flex-wrap: wrap;
 }
 
-li.item-container{
+li {
     display: block;
+}
+
+button {
+    background-color: transparent;
+    border: 0px;
+}
+
+li.item-container{
+    display: flex;
     margin: 5px;
     flex-direction: column;
 }
@@ -85,4 +94,16 @@ span.item-name{
 
 button:hover {
     opacity: 0.5;
+    display: flex;
+    flex-direction: column;
+}
+
+span.item-name{
+    color: #fff;
+    font-size: 14px;
+    background-color: rgba(0,0,0,.5);
+    display: block;
+    padding: 5px;
+    bottom: 0;
+    text-align: center;
 }
