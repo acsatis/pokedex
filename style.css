@@ -21,6 +21,18 @@ li {
     display: block;
 }
 
+button {
+    background-color: transparent;
+}
+
 li.fire {
     background-color: #F08030;
+}
+
+li.poison {
+    background: linear-gradient(90deg, #78C850 50%, #A040A0 50%)
+}
+
+li.water {
+    background-color: #6890F0;
 }
