@@ -50,9 +50,16 @@ pokes.forEach(function (element) {
     var span = document.createElement('span');
     var p = document.createElement('p');
     li.className = "item-container";
-    element.type.forEach(function (type) {
-        li.className += ' ' + type;
-    });
+    if (element.type.length === 1) {
+        li.style.background = colors[element.type[0]];
+    } else {
+        var bg = "linear-gradient(90deg, ";
+        element.type.forEach(function (type) {
+            bg += type + " 50%";
+        });
+        bg += ")";
+        li.style.background = bg;
+    }
     img.src = element.sprite;
     span.className = "item-name";
     span.textContent = element.name;
