@@ -5,6 +5,7 @@ body {
 }
 
 header {
+    display: block;
     background-color: rgb(160, 64, 160);
 }
 
