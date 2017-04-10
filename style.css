@@ -2,8 +2,8 @@ body {
     background-color: #eee;
     font-family: "Helvetica Neue",Helvetica,Arial,Verdana,sans-serif;
     font-size: 14px;
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     align-content: stretch;
 }
 
@@ -12,24 +12,17 @@ div.content {
 }
 
 header {
-    margin: 0px;
+    margin: 0;
     background-color: rgb(160, 64, 160);
     color: #FFFFFF;
 }
 
-.monster-sprite {
+button {
+    background-color: transparent;
     background-repeat: no-repeat;
     background-position: center center;
     width: 140px;
     height: 140px;
-}
-
-li {
-    display: block;
-}
-
-button {
-    background-color: transparent;
 }
 
 li.fire {
@@ -47,9 +40,10 @@ li.water {
 ul.list-container{
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap
+    flex-wrap: wrap;
 }
 
 li.item-container{
+    display: block;
     margin: 5px;
 }
