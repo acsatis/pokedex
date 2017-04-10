@@ -29,15 +29,39 @@ li.fire {
     background-color: #F08030;
 }
 
+li.grass {
+    background-color: #78C850;
+}
+
 li.poison {
-    background: linear-gradient(90deg, #78C850 50%, #A040A0 50%)
+    background-color: #A040A0;
 }
 
 li.water {
     background-color: #6890F0;
 }
 
-ul.list-container{
+li.bug {
+    background-color: #A8B820;
+}
+
+li.flying {
+    background-color: #A890F0;
+}
+
+li.bug.flying {
+    background: linear-gradient(90deg, #A8B820 50%, #A890F0 50%)
+}
+
+li.bug.poison {
+    background: linear-gradient(90deg, #A8B820 50%, #A040A0 50%)
+}
+
+li.grass.poison {
+    background: linear-gradient(90deg, #78C850 50%, #A040A0 50%)
+}
+
+ul.list-container {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -53,10 +77,23 @@ button {
 }
 
 li.item-container{
-    display: block;
-    margin: 5px;
     display: flex;
+    margin: 5px;
     flex-direction: column;
+}
+
+span.item-name{
+    color: #fff;
+    font-size: 14px;
+    background-color: rgba(0,0,0,.5);
+    display: block;
+    padding: 5px;
+    bottom: 0;
+    text-align: center;
+}
+
+button:hover {
+    opacity: 0.5;
 }
 
 span.item-name{
