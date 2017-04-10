@@ -24,14 +24,6 @@ header {
     height: 140px;
 }
 
-li {
-    display: block;
-}
-
-button {
-    background-color: transparent;
-}
-
 li.fire {
     background-color: #F08030;
 }
@@ -45,11 +37,31 @@ li.water {
 }
 
 ul.list-container{
-    display: flex;
-    flex-direction: row;
+    display: flex; 
+    flex-direction: row; 
     flex-wrap: wrap
+}
+
+li {
+    display: block;
+}
+
+button {
+    background-color: transparent;
+    border: 0px;
 }
 
 li.item-container{
     margin: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+span.item-name{
+    color: #fff;
+    font-size: 14px;
+    background-color: rgba(0,0,0,.5);
+    display: block;
+    padding: 5px;
+    bottom: 0;
 }
