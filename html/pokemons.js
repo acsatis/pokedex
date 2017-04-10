@@ -31,6 +31,15 @@ var pokes = [
 },
 ];
 
+var colors = {
+    "fire" : "#F08030",
+    "grass" : "#78C850",
+    "poison" : "#A040A0",
+    "water" : "#6890F0",
+    "bug" : "#A8B820",
+    "flying" : "#A890F0"
+}
+
 console.log(pokes);
 
 var ul = document.querySelector('ul');
