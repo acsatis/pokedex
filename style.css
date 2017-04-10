@@ -5,7 +5,10 @@ body {
 }
 
 header {
-    display: block;
+    display: flex;
+    align-content: stretch;
+    margin: 0px;
+    padding: 0px;
     background-color: rgb(160, 64, 160);
     color: #FFFFFF;
 }
@@ -23,4 +26,23 @@ li {
 
 li.fire {
     background-color: #F08030;
+}
+
+ul.list-container{
+    display: flex; 
+    flex-direction: row; 
+    flex-wrap: wrap
+}
+
+li.item-container{
+    padding: 5px;
+}
+
+body{
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    align-content: stretch;
+    margin: 0px;
+    padding: 0px;
 }
