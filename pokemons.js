@@ -40,7 +40,7 @@ pokes.forEach(function(element){
     var btn = document.createElement('button');
     var span = document.createElement('span');
     var p = document.createElement('p');
-    li.className = "item-container poison";
+    li.className = "item-container";
     element.type.forEach(function (type){
         li.className += ' ' + type;
     });
