@@ -2,7 +2,7 @@ var pokes = [
     {
         "id": 1,
         "name": "Bulbasaur",
-        "type": ["grass", "posion"],
+        "type": ["grass", "poison"],
         "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
     },
     {
@@ -14,7 +14,7 @@ var pokes = [
     {
         "id": 15,
         "name": "Beedrill",
-        "type": ["bug", "posion"],
+        "type": ["bug", "poison"],
         "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/15.png"
     },
     {
@@ -53,12 +53,13 @@ pokes.forEach(function (element) {
     if (element.type.length === 1) {
         li.style.background = colors[element.type[0]];
     } else {
-        var bg = "linear-gradient(90deg, ";
+        var bg = "background: linear-gradient(90deg, ";
         element.type.forEach(function (type) {
-            bg += type + " 50%";
+            bg += colors[type] + " 50%, ";
         });
-        bg += ")";
-        li.style.background = bg;
+        bg = bg.substring(0, bg.length-2);
+        bg += ");";
+        li.setAttribute('style', bg);
     }
     img.src = element.sprite;
     span.className = "item-name";
