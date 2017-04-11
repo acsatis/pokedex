@@ -40,6 +40,8 @@ var colors = {
     "flying": "#A890F0"
 };
 
+var itemcountSpan = document.querySelector("#itemcount");
+
 //console.log(pokes);
 
 fetch("//pokeapi.co/api/v2/pokemon/?limit=10")
@@ -80,8 +82,9 @@ function downloadPokeDetails(serverpokemons, pokemons, count){
             renderPokemons(pokemons);
         }
         else{
-            downloadPokeDetails(serverpokemons, pokemons, count-1)
+            downloadPokeDetails(serverpokemons, pokemons, count-1);
         }
+        itemcountSpan.textContent = count -1;
     })
     .catch(function(ex){
         console.log("Error details", ex);
@@ -89,7 +92,7 @@ function downloadPokeDetails(serverpokemons, pokemons, count){
             renderPokemons(pokemons);
         }
         else{
-            downloadPokeDetails(serverpokemons, pokemons, count-1)
+            downloadPokeDetails(serverpokemons, pokemons, count-1);
         }
     });
 };
