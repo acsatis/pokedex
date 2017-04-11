@@ -42,7 +42,7 @@ var colors = {
 
 //console.log(pokes);
 
-fetch("http://pokeapi.co/api/v2/pokemon/?limit=10")
+fetch("https://pokeapi.co/api/v2/pokemon/?limit=10")
 .then(function(response){
     return response.text();
     console.log(response);
