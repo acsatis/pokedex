@@ -42,7 +42,7 @@ var colors = {
 
 //console.log(pokes);
 
-fetch("https://pokeapi.co/api/v2/pokemon/?limit=10")
+fetch("//pokeapi.co/api/v2/pokemon/?limit=10")
 .then(function(response){
     return response.text();
     console.log(response);
@@ -53,15 +53,13 @@ fetch("https://pokeapi.co/api/v2/pokemon/?limit=10")
     console.log(parsedBody.results);
     var pokemons = parsedBody.results.map(function(poke){
         return {
-        "id": 152,
+        "id": 1,
         "name": poke.name,
-        "type": ["grass"],
-        "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/152.png"}
+        "type":[],
+        "sprite": ""}
     });
     
-    downloadPokeDetails(parsedBody.results, pokemons, pokemons.length)
-
-    //renderPokemons(pokemons);
+    downloadPokeDetails(parsedBody.results, pokemons, pokemons.length);
 })
 .catch(function(ex){
     console.log("parsing failed", ex);
