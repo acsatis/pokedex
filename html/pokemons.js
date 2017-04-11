@@ -41,7 +41,8 @@ var colors = {
 };
 
 var itemcountSpan = document.querySelector("#itemcount");
-
+var downloadPanel = document.querySelector("#downloadingPanel");
+var content = document.querySelector("#content");
 //console.log(pokes);
 
 fetch("//pokeapi.co/api/v2/pokemon/?limit=10")
@@ -80,6 +81,7 @@ function downloadPokeDetails(serverpokemons, pokemons, count){
         pokemons[count-1].sprite = parsedBody.sprites.front_default;
         if(count === 1){
             renderPokemons(pokemons);
+            content.removeChild(downloadPanel);
         }
         else{
             downloadPokeDetails(serverpokemons, pokemons, count-1);
