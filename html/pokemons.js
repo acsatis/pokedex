@@ -45,7 +45,7 @@ var downloadPanel = document.querySelector("#downloadingPanel");
 var content = document.querySelector("#content");
 //console.log(pokes);
 
-fetch("//pokeapi.co/api/v2/pokemon/?limit=2")
+fetch("//pokeapi.co/api/v2/pokemon/?limit=5")
 .then(function(response){
     return response.text();
     console.log(response);
