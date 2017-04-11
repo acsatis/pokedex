@@ -59,3 +59,17 @@ span.item-name{
 button:hover {
     opacity: 0.5;
 }
+
+input {
+    display: none;
+    height: 32px;
+    width: 100%;
+    font-size: 16px;
+    padding: 0;
+    box-shadow: none;
+    box-sizing: border-box;
+    background: transparent;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid rgba(0,0,0,.4);
+}

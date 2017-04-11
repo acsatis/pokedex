@@ -42,67 +42,75 @@ var colors = {
 
 var itemcountSpan = document.querySelector("#itemcount");
 var downloadPanel = document.querySelector("#downloadingPanel");
-var content = document.querySelector("#content");
+//var content = document.querySelector("#content");
+var filter = document.querySelector('input');
+var downloadedPokemons;
 //console.log(pokes);
 
-fetch("//pokeapi.co/api/v2/pokemon/?limit=5")
-.then(function(response){
-    return response.text();
-    console.log(response);
-})
-.then(function(body){
-    console.log(body);
-    var parsedBody = JSON.parse(body);
-    console.log(parsedBody.results);
-    var pokemons = parsedBody.results.map(function(poke){
-        return {
-        "id": 1,
-        "name": poke.name,
-        "type":[],
-        "sprite": ""}
-    });
-    
-    downloadPokeDetails(parsedBody.results, pokemons, pokemons.length);
-})
-.catch(function(ex){
-    console.log("parsing failed", ex);
-});
 
-function downloadPokeDetails(serverpokemons, pokemons, count){
-    console.log("item count", count);
-    // console.log("url:", serverpokemons[count-1].url);
-    fetch(serverpokemons[count-1].url)
-    .then(function(response){
+fetch("//pokeapi.co/api/v2/pokemon/?limit=5")
+    .then(function (response) {
         return response.text();
     })
-    .then(function(body){
+    .then(function (body) {
+        console.log(body);
         var parsedBody = JSON.parse(body);
-        pokemons[count-1].type = parsedBody.types.map(function(details){ return details.type.name; });
-        pokemons[count-1].sprite = parsedBody.sprites.front_default;
-        if(count === 1){
-            renderPokemons(pokemons);
-            downloadPanel.parentNode.removeChild(downloadPanel);
-        }
-        else{
-            downloadPokeDetails(serverpokemons, pokemons, count-1);
-        }
-        itemcountSpan.textContent = count -1;
+        console.log(parsedBody.results);
+        var pokemons = parsedBody.results.map(function (poke) {
+            return {
+                "id": 1,
+                "name": poke.name,
+                "type": [],
+                "sprite": ""
+            }
+        });
+
+        downloadPokeDetails(parsedBody.results, pokemons, pokemons.length);
     })
-    .catch(function(ex){
-        console.log("Error details", ex);
-        if(count === 1){
-            renderPokemons(pokemons);
-        }
-        else{
-            downloadPokeDetails(serverpokemons, pokemons, count-1);
-        }
+    .catch(function (ex) {
+        console.log("parsing failed", ex);
     });
-};
+
+function downloadPokeDetails(serverpokemons, pokemons, count) {
+    console.log("item count", count);
+    // console.log("url:", serverpokemons[count-1].url);
+    fetch(serverpokemons[count - 1].url)
+        .then(function (response) {
+            return response.text();
+        })
+        .then(function (body) {
+            var parsedBody = JSON.parse(body);
+            pokemons[count - 1].type = parsedBody.types.map(function (details) {
+                return details.type.name;
+            });
+            pokemons[count - 1].sprite = parsedBody.sprites.front_default;
+            if (count === 1) {
+                downloadedPokemons = pokemons;
+                renderPokemons(pokemons);
+                downloadPanel.parentNode.removeChild(downloadPanel);
+            }
+            else {
+                downloadPokeDetails(serverpokemons, pokemons, count - 1);
+            }
+            itemcountSpan.textContent = count - 1;
+        })
+        .catch(function (ex) {
+            console.log("Error details", ex);
+            if (count === 1) {
+                downloadedPokemons = pokemons;
+                renderPokemons(pokemons);
+            }
+            else {
+                downloadPokeDetails(serverpokemons, pokemons, count - 1);
+            }
+        });
+}
 
 
-
-function renderPokemons(pokemons){
+function renderPokemons(pokemons) {
+    filter.style.display = "block";
     var ul = document.querySelector('ul');
+    ul.innerHTML = "";
     pokemons.forEach(function (element) {
         var li = document.createElement('li');
         var img = document.createElement('img');
@@ -117,7 +125,7 @@ function renderPokemons(pokemons){
             element.type.forEach(function (type) {
                 bg += colors[type] + " 50%, ";
             });
-            bg = bg.substring(0, bg.length-2);
+            bg = bg.substring(0, bg.length - 2);
             bg += ");";
             li.setAttribute('style', bg);
         }
@@ -131,4 +139,10 @@ function renderPokemons(pokemons){
         ul.appendChild(li);
     });
 }
+
+filter.addEventListener("input", function (event) {
+    renderPokemons(downloadedPokemons.filter(function (pokemon) {
+        return pokemon.name.startsWith(event.target.value);
+    }));
+});
 
