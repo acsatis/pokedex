@@ -40,33 +40,92 @@ var colors = {
     "flying": "#A890F0"
 };
 
-console.log(pokes);
+//console.log(pokes);
 
-var ul = document.querySelector('ul');
-pokes.forEach(function (element) {
-    var li = document.createElement('li');
-    var img = document.createElement('img');
-    var btn = document.createElement('button');
-    var span = document.createElement('span');
-    var p = document.createElement('p');
-    li.className = "item-container";
-    if (element.type.length === 1) {
-        li.style.background = colors[element.type[0]];
-    } else {
-        var bg = "background: linear-gradient(90deg, ";
-        element.type.forEach(function (type) {
-            bg += colors[type] + " 50%, ";
-        });
-        bg = bg.substring(0, bg.length-2);
-        bg += ");";
-        li.setAttribute('style', bg);
-    }
-    img.src = element.sprite;
-    span.className = "item-name";
-    span.textContent = element.name;
-    span.appendChild(p);
-    btn.appendChild(img);
-    li.appendChild(btn);
-    li.appendChild(span);
-    ul.appendChild(li);
+fetch("http://pokeapi.co/api/v2/pokemon/?limit=10")
+.then(function(response){
+    return response.text();
+    console.log(response);
+})
+.then(function(body){
+    console.log(body);
+    var parsedBody = JSON.parse(body);
+    console.log(parsedBody.results);
+    var pokemons = parsedBody.results.map(function(poke){
+        return {
+        "id": 152,
+        "name": poke.name,
+        "type": ["grass"],
+        "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/152.png"}
+    });
+    
+    downloadPokeDetails(parsedBody.results, pokemons, pokemons.length)
+
+    //renderPokemons(pokemons);
+})
+.catch(function(ex){
+    console.log("parsing failed", ex);
 });
+
+function downloadPokeDetails(serverpokemons, pokemons, count){
+    console.log("item count", count);
+    // console.log("url:", serverpokemons[count-1].url);
+    fetch(serverpokemons[count-1].url)
+    .then(function(response){
+        return response.text();
+    })
+    .then(function(body){
+        var parsedBody = JSON.parse(body);
+        pokemons[count-1].type = parsedBody.types.map(function(details){ return details.type.name; });
+        pokemons[count-1].sprite = parsedBody.sprites.front_default;
+        if(count === 1){
+            renderPokemons(pokemons);
+        }
+        else{
+            downloadPokeDetails(serverpokemons, pokemons, count-1)
+        }
+    })
+    .catch(function(ex){
+        console.log("Error details", ex);
+        if(count === 1){
+            renderPokemons(pokemons);
+        }
+        else{
+            downloadPokeDetails(serverpokemons, pokemons, count-1)
+        }
+    });
+};
+
+
+
+function renderPokemons(pokemons){
+    var ul = document.querySelector('ul');
+    pokemons.forEach(function (element) {
+        var li = document.createElement('li');
+        var img = document.createElement('img');
+        var btn = document.createElement('button');
+        var span = document.createElement('span');
+        var p = document.createElement('p');
+        li.className = "item-container";
+        if (element.type.length === 1) {
+            li.style.background = colors[element.type[0]];
+        } else {
+            var bg = "background: linear-gradient(90deg, ";
+            element.type.forEach(function (type) {
+                bg += colors[type] + " 50%, ";
+            });
+            bg = bg.substring(0, bg.length-2);
+            bg += ");";
+            li.setAttribute('style', bg);
+        }
+        img.src = element.sprite;
+        span.className = "item-name";
+        span.textContent = element.name;
+        span.appendChild(p);
+        btn.appendChild(img);
+        li.appendChild(btn);
+        li.appendChild(span);
+        ul.appendChild(li);
+    });
+}
+
