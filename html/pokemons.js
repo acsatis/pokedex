@@ -25,14 +25,9 @@ const ul = document.querySelector('ul');
 let pokemons;
 
 fetch("//pokeapi.co/api/v2/pokemon/?limit=12")
-    .then(function (response) {
-        return response.text();
-    })
-    .then(function (body) {
-        console.log(body);
-        const parsedBody = JSON.parse(body);
-        console.log(parsedBody.results);
-        pokemons = parsedBody.results.map(pokemon => ({
+    .then(response => response.json())
+    .then(downloadedPokemons =>{
+        pokemons = downloadedPokemons.results.map(pokemon => ({
             "id": parseInt(pokemon.url.match(/(\d+)(?!.*\d)/)[0], 10),
             "url": pokemon.url,
             "name": pokemon.name,
@@ -45,8 +40,8 @@ fetch("//pokeapi.co/api/v2/pokemon/?limit=12")
         renderPokemons(pokemons);
         downloadPokeDetails();
     })
-    .catch(function (ex) {
-        console.log("parsing failed", ex);
+    .catch(ex =>{
+        console.log("Parsing failed", ex);
     });
 
 function downloadPokeDetails() {
@@ -62,7 +57,7 @@ function downloadPokeDetails() {
                     pokemon.type = downloadedPokemon.type.map(details => {
                         const type = details.type.name;
                         pokemon.searchString += "###" + type;
-                        return types;
+                        return type;
                     });
                     pokemon.sprite = downloadedPokemon.sprites.front_default;
                     localStorage.setItem(pokemon.id, JSON.stringify(pokemon));
