@@ -61,7 +61,7 @@ function downloadPokeDetails() {
                 .then(downloadedPokemon => {
                     pokemon.type = downloadedPokemon.type.map(details => {
                         const type = details.type.name;
-                        pokemon.searchString += "###" + types;
+                        pokemon.searchString += "###" + type;
                         return types;
                     });
                     pokemon.sprite = downloadedPokemon.sprites.front_default;

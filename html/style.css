@@ -70,8 +70,8 @@ span.item-name {
     text-align: center;
 }
 
-button:hover {
-    opacity: 0.5;
+li.item-container:hover {
+    opacity: .7;
 }
 
 #filterPanel {
