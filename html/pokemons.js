@@ -22,27 +22,34 @@ const spinner = document.querySelector(".spinner");
 const filterPanel = document.querySelector("#filterPanel");
 const filter = document.querySelector("#filter");
 const ul = document.querySelector('ul');
-let pokemons;
+let pokemons = [];
+let next = null;
 
-fetch("//pokeapi.co/api/v2/pokemon/?limit=12")
-    .then(response => response.json())
-    .then(downloadedPokemons =>{
-        pokemons = downloadedPokemons.results.map(pokemon => ({
-            "id": parseInt(pokemon.url.match(/(\d+)(?!.*\d)/)[0], 10),
-            "url": pokemon.url,
-            "name": pokemon.name,
-            "type": [],
-            "sprite": "",
-            "searchString": pokemon.name
-        }));
-        spinner.style.display = "none";
-        filterPanel.style.display = "block";
-        renderPokemons(pokemons);
-        downloadPokeDetails();
-    })
-    .catch(ex =>{
-        console.log("Parsing failed", ex);
-    });
+fetchPokemons("//pokeapi.co/api/v2/pokemon/?limit=18");
+
+function fetchPokemons(url) {
+    spinner.style.display = "block";
+    fetch(url)
+        .then(response => response.json())
+        .then(downloadedPokemons => {
+            next = downloadedPokemons.next;
+            pokemons = pokemons.concat(downloadedPokemons.results.map(pokemon => ({
+                "id": parseInt(pokemon.url.match(/(\d+)(?!.*\d)/)[0], 10),
+                "url": pokemon.url,
+                "name": pokemon.name,
+                "type": [],
+                "sprite": "",
+                "searchString": pokemon.name
+            })));
+            spinner.style.display = "none";
+            filterPanel.style.display = "block";
+            renderPokemons(pokemons);
+            downloadPokeDetails();
+        })
+        .catch(ex => {
+            console.log("Parsing failed", ex);
+        });
+}
 
 function downloadPokeDetails() {
     pokemons.forEach((pokemon, index) => {
@@ -54,7 +61,8 @@ function downloadPokeDetails() {
             fetch(pokemon.url)
                 .then(response => response.json())
                 .then(downloadedPokemon => {
-                    pokemon.type = downloadedPokemon.type.map(details => {
+                    console.dir(downloadedPokemon);
+                    pokemon.type = downloadedPokemon.types.map(details => {
                         const type = details.type.name;
                         pokemon.searchString += "###" + type;
                         return type;
@@ -72,7 +80,7 @@ function downloadPokeDetails() {
 
 function renderPokemons(pokemonsToRender) {
     ul.innerHTML = "";
-    pokemonsToRender.forEach(pokemon =>{
+    pokemonsToRender.forEach(pokemon => {
         ul.appendChild(renderPokemon(pokemon));
     });
 }
@@ -88,7 +96,7 @@ function renderPokemon(pokemon) {
         li.style.background = colors[pokemon.type[0]];
     } else {
         let bg = "background: linear-gradient(90deg, ";
-        pokemon.type.forEach(type =>{
+        pokemon.type.forEach(type => {
             bg += colors[type] + " 50%, ";
         });
         bg = bg.substring(0, bg.length - 2);
@@ -113,7 +121,13 @@ function renderPokemon(pokemon) {
     return li;
 }
 
-filter.addEventListener("input", event =>{
+filter.addEventListener("input", event => {
     renderPokemons(pokemons.filter(pokemon => pokemon.searchString.indexOf(event.target.value) !== -1));
+});
+
+document.addEventListener('scroll', () =>{
+    if (document.body.scrollHeight - 1 <= window.innerHeight + document.body.scrollTop) {
+        if (next !== null) fetchPokemons(next);
+    }
 });
 
