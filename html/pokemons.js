@@ -43,29 +43,35 @@ fetch("//pokeapi.co/api/v2/pokemon/?limit=12")
         spinner.style.display = "none";
         filterPanel.style.display = "block";
         renderPokemons(pokemons);
-        downloadPokeDetails(pokemons);
+        downloadPokeDetails();
     })
     .catch(function (ex) {
         console.log("parsing failed", ex);
     });
 
 function downloadPokeDetails() {
-    pokemons.forEach(pokemon => {
-        fetch(pokemon.url)
-            .then(response => response.text())
-            .then(body =>{
-                const downloadedPokemon = JSON.parse(body);
-                pokemon.type = downloadedPokemon.types.map(details =>{
-                    const type = details.type.name;
-                    pokemon.searchString += "###" + type;
-                    return type;
+    pokemons.forEach((pokemon, index) => {
+        const savedPokemon = localStorage.getItem(pokemon.id);
+        if (savedPokemon !== null) {
+            pokemons[index] = JSON.parse(savedPokemon);
+            renderPokemons(pokemons);
+        } else {
+            fetch(pokemon.url)
+                .then(response => response.json())
+                .then(downloadedPokemon => {
+                    pokemon.type = downloadedPokemon.types.map(details => {
+                        const type = details.type.name;
+                        pokemon.searchString += "###" + type;
+                        return type;
+                    });
+                    pokemon.sprite = downloadedPokemon.sprites.front_default;
+                    localStorage.setItem(pokemon.id, JSON.stringify(pokemon));
+                    renderPokemons(pokemons);
+                })
+                .catch(ex => {
+                    console.log("Error details", ex);
                 });
-                pokemon.sprite = downloadedPokemon.sprites.front_default;
-                renderPokemons(pokemons);
-            })
-            .catch(ex =>{
-                console.log("Error details", ex);
-            });
+        }
     })
 }
 
