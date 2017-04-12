@@ -59,10 +59,10 @@ function downloadPokeDetails() {
             fetch(pokemon.url)
                 .then(response => response.json())
                 .then(downloadedPokemon => {
-                    pokemon.type = downloadedPokemon.types.map(details => {
+                    pokemon.type = downloadedPokemon.type.map(details => {
                         const type = details.type.name;
-                        pokemon.searchString += "###" + type;
-                        return type;
+                        pokemon.searchString += "###" + types;
+                        return types;
                     });
                     pokemon.sprite = downloadedPokemon.sprites.front_default;
                     localStorage.setItem(pokemon.id, JSON.stringify(pokemon));
@@ -100,8 +100,12 @@ function renderPokemon(pokemon) {
         bg += ");";
         li.setAttribute('style', bg);
     }
+    let name = pokemon.name + "<br>";
+    pokemon.type.forEach(type => {
+        name += type + " ";
+    });
     span.className = "item-name";
-    span.textContent = pokemon.name;
+    span.innerHTML = name;
     span.appendChild(p);
     btn.appendChild(img);
     li.appendChild(btn);
