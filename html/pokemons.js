@@ -1,22 +1,22 @@
 const colors = {
-    "fairy": "#D685AD",
+    "fighting": "#C22E28",
+    "fire": "#EE8130",
+    "electric": "#F7D02C",
+    "ground": "#E2BF65",
+    "rock": "#B6A136",
+    "bug": "#A6B91A",
+    "grass": "#7AC74C",
+    "ice": "#96D9D6",
+    "water": "#6390F0",
     "steel": "#B7B7CE",
-    "dark": "#705746",
+    "flying": "#A98FF3",
     "dragon": "#6F35FC",
     "ghost": "#735797",
-    "rock": "#B6A136",
-    "psychic": "#F95587",
-    "ground": "#E2BF65",
-    "fighting": "#C22E28",
-    "ice": "#96D9D6",
-    "electric": "#F7D02C",
-    "normal": "#A8A77A",
-    "fire": "#EE8130",
-    "grass": "#7AC74C",
     "poison": "#A33EA1",
-    "water": "#6390F0",
-    "bug": "#A6B91A",
-    "flying": "#A98FF3"
+    "fairy": "#D685AD",
+    "psychic": "#F95587",
+    "normal": "#A8A77A",
+    "dark": "#705746"
 };
 const spinner = document.querySelector(".spinner");
 const filterPanel = document.querySelector("#filterPanel");
