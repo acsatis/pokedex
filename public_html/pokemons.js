@@ -26,7 +26,7 @@
     let pokemons = [];
     let next = null;
 
-    fetchPokemons("//pokeapi.co/api/v2/pokemon/?limit=18");
+    fetchPokemons("//localhost:8080/api/pokemons/?limit=18");
 
     filter.addEventListener("input", event => {
         renderPokemons(pokemons.filter(pokemon => pokemon.searchString.indexOf(event.target.value) !== -1));

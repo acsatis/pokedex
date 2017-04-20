@@ -1,0 +1,8 @@
+{
+  "name": "pokedex",
+  "version": "0.0.1",
+  "dependencies": {
+    "bl": "^1.2.0",
+    "express": "latest"
+  }
+}
